@@ -44,6 +44,7 @@ public interface DeviceMapper {
             "on_line," +
             "media_server_id," +
             "broadcast_push_after_ack," +
+            "protocol," +
             "(SELECT count(0) FROM wvp_device_channel WHERE device_id=wvp_device.device_id) as channel_count "+
             " FROM wvp_device WHERE device_id = #{deviceId}")
     Device getDeviceByDeviceId(String deviceId);
@@ -76,7 +77,8 @@ public interface DeviceMapper {
                 "as_message_channel,"+
                 "broadcast_push_after_ack,"+
                 "geo_coord_sys,"+
-                "on_line"+
+                "on_line,"+
+                "protocol" +
             ") VALUES (" +
                 "#{deviceId}," +
                 "#{name}," +
@@ -105,7 +107,8 @@ public interface DeviceMapper {
                 "#{asMessageChannel}," +
                 "#{broadcastPushAfterAck}," +
                 "#{geoCoordSys}," +
-                "#{onLine}" +
+                "#{onLine}," +
+                "#{protocol}"+
             ")")
     int add(Device device);
 
@@ -118,6 +121,7 @@ public interface DeviceMapper {
                 "<if test=\"firmware != null\">, firmware=#{firmware}</if>" +
                 "<if test=\"transport != null\">, transport=#{transport}</if>" +
                 "<if test=\"ip != null\">, ip=#{ip}</if>" +
+                "<if test=\"protocol != null\">, protocol=#{protocol}</if>" +
                 "<if test=\"localIp != null\">, local_ip=#{localIp}</if>" +
                 "<if test=\"port != null\">, port=#{port}</if>" +
                 "<if test=\"hostAddress != null\">, host_address=#{hostAddress}</if>" +
@@ -160,7 +164,7 @@ public interface DeviceMapper {
             "as_message_channel,"+
             "broadcast_push_after_ack,"+
             "geo_coord_sys,"+
-            "on_line,"+
+            "on_line,"+ "protocol,"+
             "media_server_id,"+
             "(SELECT count(0) FROM wvp_device_channel WHERE device_id=de.device_id) as channel_count " +
             "FROM wvp_device de" +
@@ -201,6 +205,7 @@ public interface DeviceMapper {
             "as_message_channel,"+
             "broadcast_push_after_ack,"+
             "geo_coord_sys,"+
+            "protocol,"+
             "on_line"+
             " FROM wvp_device WHERE on_line = true")
     List<Device> getOnlineDevices();
@@ -232,6 +237,7 @@ public interface DeviceMapper {
             "as_message_channel,"+
             "broadcast_push_after_ack,"+
             "geo_coord_sys,"+
+            "protocol,"+
             "on_line"+
             " FROM wvp_device WHERE ip = #{host} AND port=#{port}")
     Device getDeviceByHostAndPort(@Param("host") String host, @Param("port") int port);
@@ -244,6 +250,7 @@ public interface DeviceMapper {
             "<if test=\"streamMode != null\">, stream_mode=#{streamMode}</if>" +
             "<if test=\"ip != null\">, ip=#{ip}</if>" +
             "<if test=\"sdpIp != null\">, sdp_ip=#{sdpIp}</if>" +
+            "<if test=\"protocol != null\">, protocol=#{protocol}</if>" +
             "<if test=\"port != null\">, port=#{port}</if>" +
             "<if test=\"charset != null\">, charset=#{charset}</if>" +
             "<if test=\"subscribeCycleForCatalog != null\">, subscribe_cycle_for_catalog=#{subscribeCycleForCatalog}</if>" +
@@ -272,6 +279,7 @@ public interface DeviceMapper {
             "broadcast_push_after_ack,"+
             "geo_coord_sys,"+
             "on_line,"+
+            "protocol,"+
             "media_server_id"+
             ") VALUES (" +
             "#{deviceId}," +
@@ -286,6 +294,7 @@ public interface DeviceMapper {
             "#{broadcastPushAfterAck}," +
             "#{geoCoordSys}," +
             "#{onLine}," +
+            "#{protocol}," +
             "#{mediaServerId}" +
             ")")
     void addCustomDevice(Device device);

@@ -191,6 +191,9 @@ public class Device {
 	@Schema(description = "控制语音对讲流程，释放收到ACK后发流")
 	private boolean broadcastPushAfterAck;
 
+	@Schema(description = "设备协议")
+	private String protocol;
+
 	public String getDeviceId() {
 		return deviceId;
 	}
@@ -459,4 +462,12 @@ public class Device {
     public void setBroadcastPushAfterAck(boolean broadcastPushAfterAck) {
         this.broadcastPushAfterAck = broadcastPushAfterAck;
     }
+
+	public String getProtocol() {
+		return protocol;
+	}
+
+	public void setProtocol(String protocol) {
+		this.protocol = protocol;
+	}
 }

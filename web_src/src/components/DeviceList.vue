@@ -15,6 +15,14 @@
       </el-table-column>
       <el-table-column prop="deviceId" label="设备编号" min-width="200" >
       </el-table-column>
+      <el-table-column prop="protocol" label="协议" min-width="200" >
+        <template slot-scope="scope">
+          <div slot="reference" class="name-wrapper">
+            <el-tag size="medium">{{getProtocolDesc(scope.row.protocol)}}</el-tag>
+          
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column label="地址" min-width="160" >
         <template slot-scope="scope">
           <div slot="reference" class="name-wrapper">
@@ -106,7 +114,7 @@ export default {
     return {
       deviceList: [], //设备列表
       currentDevice: {}, //当前操作设备对象
-
+      protocols: [{"val":"hc","desc":"海康私有协议"},{"val":"onvif","desc":"Onvif"},{"val":"gb28181","desc":"国标协议"}],
       videoComponentList: [],
       updateLooper: 0, //数据刷新轮训标志
       currentDeviceChannelsLenth: 0,
@@ -141,6 +149,14 @@ export default {
   methods: {
     initData: function () {
       this.getDeviceList();
+    },
+    getProtocolDesc(val) { 
+      for (const iterator of this.protocols) {
+        if (iterator.val === val) { 
+          return iterator.desc
+        }
+      }
+      return '';
     },
     currentChange: function (val) {
       this.currentPage = val;

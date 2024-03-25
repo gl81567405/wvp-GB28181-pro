@@ -19,6 +19,16 @@
           <el-form-item label="设备名称" prop="name">
             <el-input v-model="form.name" clearable></el-input>
           </el-form-item>
+          <el-form-item label="设备协议" prop="protocol">
+            <el-select v-model="form.protocol" style="float: left; width: 100%" >
+              <el-option
+                v-for="item in protocols"
+                :key="item.val"
+                :label="item.desc"
+                :value="item.val">
+              </el-option>
+            </el-select>
+          </el-form-item>
           <el-form-item label="密码" prop="password">
             <el-input v-model="form.password" clearable></el-input>
           </el-form-item>
@@ -93,6 +103,7 @@ export default {
       isLoging: false,
       hostNames:[],
       mediaServerList: [], // 滅体节点列表
+      protocols: [{"val":"hc","desc":"海康私有协议"},{"val":"onvif","desc":"Onvif"},{"val":"gb28181","desc":"国标协议"}],
       mediaServerObj : new MediaServer(),
       form: {},
       isEdit: false,

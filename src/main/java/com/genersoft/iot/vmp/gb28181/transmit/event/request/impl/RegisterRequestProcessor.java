@@ -1,5 +1,6 @@
 package com.genersoft.iot.vmp.gb28181.transmit.event.request.impl;
 
+import com.genersoft.iot.vmp.common.enums.ProtocolType;
 import com.genersoft.iot.vmp.conf.SipConfig;
 import com.genersoft.iot.vmp.conf.UserSetting;
 import com.genersoft.iot.vmp.gb28181.auth.DigestServerAuthenticationHelper;
@@ -115,6 +116,7 @@ public class RegisterRequestProcessor extends SIPRequestProcessorParent implemen
                     device.setPort(remoteAddressInfo.getPort());
                     device.setHostAddress(remoteAddressInfo.getIp().concat(":").concat(String.valueOf(remoteAddressInfo.getPort())));
                     device.setLocalIp(request.getLocalAddress().getHostAddress());
+                    device.setProtocol(ProtocolType.GB28181.getVal());
                     Response registerOkResponse = getRegisterOkResponse(request);
                     // 判断TCP还是UDP
                     ViaHeader reqViaHeader = (ViaHeader) request.getHeader(ViaHeader.NAME);
@@ -191,6 +193,7 @@ public class RegisterRequestProcessor extends SIPRequestProcessorParent implemen
             }
 
             device.setIp(remoteAddressInfo.getIp());
+            device.setProtocol(ProtocolType.GB28181.getVal());
             device.setPort(remoteAddressInfo.getPort());
             device.setHostAddress(remoteAddressInfo.getIp().concat(":").concat(String.valueOf(remoteAddressInfo.getPort())));
             device.setLocalIp(request.getLocalAddress().getHostAddress());
